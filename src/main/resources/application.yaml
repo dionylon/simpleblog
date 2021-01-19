@@ -7,4 +7,6 @@ spring:
     database: mysql
     hibernate:
       ddl-auto: update
-    show-sql: true # ¸ÄÎªfalse
+    show-sql: true
+jwt:
+  secret: highway_to_hell

@@ -1,6 +1,6 @@
 package com.dionysun.simpleblog.controller;
 
-import com.dionysun.simpleblog.dao.ArticleRepository;
+import com.dionysun.simpleblog.PassToken;
 import com.dionysun.simpleblog.entity.Article;
 import com.dionysun.simpleblog.service.ArticleService;
 import com.dionysun.simpleblog.service.TagService;
@@ -11,10 +11,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.Objects;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/article")
@@ -25,7 +25,8 @@ public class ArticleController {
     @Autowired
     private TagService tagService;
 
-    @GetMapping("/all/{page}/{size}")
+    @PassToken
+    @GetMapping("/{page}/{size}")
     public ResponseEntity<Page<Article>> findArticleByPage(@PathVariable("page")int page,
                                                            @PathVariable("size")int size,
                                                            @RequestParam(value = "direction", required = false)String dir,
@@ -37,13 +38,14 @@ public class ArticleController {
         return ResponseEntity.ok(articlePage);
     }
 
+    @PassToken
     @GetMapping("/{articleId}")
     public ResponseEntity<Article> findArticleById(@PathVariable Integer articleId){
         Optional<Article> article = articleService.findOne(articleId);
         return ResponseEntity.of(article);
     }
 
-    @PostMapping()
+    @PostMapping("")
     public ResponseEntity<Article> postArticle(@RequestBody Article article){
         Article save = articleService.addOne(article);
         return ResponseEntity.ok(save);
