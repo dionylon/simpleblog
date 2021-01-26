@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -22,6 +23,9 @@ public class Article {
     @Column(name = "title", nullable = false, length = 100)
     private String title;
 
+    @Column(name = "is_hidden")
+    private boolean isHidden;
+
     @Lob
     @Basic(fetch = FetchType.LAZY)
     @Column(name = "content", nullable = false)
@@ -31,10 +35,7 @@ public class Article {
     @CreationTimestamp
     private Date createdTime;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "articleList")
     @JsonIgnoreProperties(value = {"articleList", "id"})
-    @JoinTable(name = "article_tag", joinColumns = @JoinColumn(name = "article_id"),
-        inverseJoinColumns = @JoinColumn(name = "tag_id")
-    )
-    private List<Tag> tagList;
+    private Set<Tag> tagList;
 }

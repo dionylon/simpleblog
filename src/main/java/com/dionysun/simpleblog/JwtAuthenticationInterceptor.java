@@ -1,6 +1,5 @@
 package com.dionysun.simpleblog;
 
-import com.dionysun.simpleblog.exceptions.InvalidTokenException;
 import com.dionysun.simpleblog.exceptions.NoAuthenticationException;
 import com.dionysun.simpleblog.service.UserService;
 import org.slf4j.Logger;

@@ -15,13 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 public class GlobalExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(Exception.class)
-    @ResponseBody
-    public ResponseEntity<String> handleUnknown(Exception e, HttpServletRequest request){
-        logger.error(request.getRequestURI() + ":服务器运行异常" + e);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("服务器错误");
-    }
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    @ExceptionHandler(Exception.class)
+//    @ResponseBody
+//    public ResponseEntity<String> handleUnknown(Exception e, HttpServletRequest request){
+//        logger.error(request.getRequestURI() + ":服务器运行异常" + e);
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("服务器错误:" + e.getMessage());
+//    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(LoginFailException.class)

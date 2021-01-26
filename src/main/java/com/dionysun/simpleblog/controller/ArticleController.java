@@ -3,41 +3,42 @@ package com.dionysun.simpleblog.controller;
 import com.dionysun.simpleblog.PassToken;
 import com.dionysun.simpleblog.entity.Article;
 import com.dionysun.simpleblog.service.ArticleService;
-import com.dionysun.simpleblog.service.TagService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Objects;
 import java.util.Optional;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/article")
 public class ArticleController {
-    @Autowired
-    private ArticleService articleService;
+    private final ArticleService articleService;
 
-    @Autowired
-    private TagService tagService;
+    public ArticleController(ArticleService articleService) {
+        this.articleService = articleService;
+    }
 
+    /**
+     * 分页查询文章
+     * @param pageable {
+     *     "page" : 0,
+     *      "size" : 10,
+     *      "sort" : "createdTime,...,title, desc | asc"
+     * }
+     * @return 分页结果
+     */
     @PassToken
-    @GetMapping("/{page}/{size}")
-    public ResponseEntity<Page<Article>> findArticleByPage(@PathVariable("page")int page,
-                                                           @PathVariable("size")int size,
-                                                           @RequestParam(value = "direction", required = false)String dir,
-                                                           @RequestParam(value = "sort", required = false) String sort) {
-        Sort.Direction direction = Objects.equals(dir, "asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
-        sort = ObjectUtils.isEmpty(sort) ? "createdTime" : sort;
-        Pageable pageable = PageRequest.of(page, size, direction, sort);
+    @GetMapping()
+    public ResponseEntity<Page<Article>> findArticleByPage(Pageable pageable) {
         Page<Article> articlePage = articleService.findAllArticles(pageable);
         return ResponseEntity.ok(articlePage);
     }
 
+    /**
+     * 查询{articleId}对应的文章
+     */
     @PassToken
     @GetMapping("/{articleId}")
     public ResponseEntity<Article> findArticleById(@PathVariable Integer articleId){
@@ -45,18 +46,28 @@ public class ArticleController {
         return ResponseEntity.of(article);
     }
 
+    /**
+     * 上传文章
+     */
     @PostMapping("")
     public ResponseEntity<Article> postArticle(@RequestBody Article article){
         Article save = articleService.addOne(article);
         return ResponseEntity.ok(save);
     }
 
+    /**
+     * 更新id为{articleId}文章
+     */
     @PostMapping("/{articleId}")
     public ResponseEntity<String> updateArticle(@PathVariable Integer articleId, @RequestBody Article article){
+        article.setId(articleId);
         articleService.updateOne(article);
         return ResponseEntity.ok("修改成功");
     }
 
+    /**
+     * 删除id为{articleId}的文章
+     */
     @DeleteMapping("/{articleId}")
     public ResponseEntity<String> deleteById(@PathVariable Integer articleId){
         articleService.deleteOne(articleId);

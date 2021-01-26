@@ -10,3 +10,6 @@ spring:
     show-sql: true
 jwt:
   secret: highway_to_hell
+  expire: 36000
+server:
+  port: 8088

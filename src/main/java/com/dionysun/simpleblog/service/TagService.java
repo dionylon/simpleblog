@@ -1,6 +1,7 @@
 package com.dionysun.simpleblog.service;
 
 
+import com.dionysun.simpleblog.entity.Article;
 import com.dionysun.simpleblog.entity.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,4 +17,8 @@ public interface TagService {
      */
     void deleteOne(Tag tag);
 
+    /**
+     * 根据tag查询文章列表
+     */
+    Page<Article> findArticlesByTag(String tagName, Pageable pageable);
 }

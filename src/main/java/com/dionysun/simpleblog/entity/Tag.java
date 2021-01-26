@@ -1,15 +1,18 @@
 package com.dionysun.simpleblog.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
-@Data
+// 使用lombok生成的toString造成stack overflow
+@Getter
+@Setter
+@RequiredArgsConstructor
 @Entity
-@NoArgsConstructor
 @Table(name = "tag")
 public class Tag {
 
@@ -17,14 +20,25 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "name", length = 40)
+    @Column(name = "name", length = 40, unique = true)
     private String name;
 
-    @JsonIgnoreProperties(value = {"tagList"})
-    @ManyToMany(mappedBy = "tagList")
-    private List<Article> articleList;
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "article_tag", joinColumns = @JoinColumn(name = "tag_id"),
+            inverseJoinColumns = @JoinColumn(name = "article_id")
+    )
+    private Set<Article> articleList;
 
     public Tag(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "id:" + id +
+                ",name:" + name +
+                "}";
     }
 }
