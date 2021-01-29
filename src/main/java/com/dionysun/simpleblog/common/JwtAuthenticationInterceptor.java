@@ -1,4 +1,4 @@
-package com.dionysun.simpleblog;
+package com.dionysun.simpleblog.common;
 
 import com.dionysun.simpleblog.exceptions.NoAuthenticationException;
 import com.dionysun.simpleblog.service.UserService;

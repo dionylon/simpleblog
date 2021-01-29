@@ -1,4 +1,4 @@
-package com.dionysun.simpleblog;
+package com.dionysun.simpleblog.common;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

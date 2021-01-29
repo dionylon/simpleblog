@@ -7,9 +7,11 @@ import org.springframework.data.elasticsearch.client.RestClients;
 import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfiguration;
 
 @Configuration
-public class RestClientConfig extends AbstractElasticsearchConfiguration {
+public class ElasticConfig extends AbstractElasticsearchConfiguration {
+    public static final String INDEX_NAME = "article";
     @Override
     public RestHighLevelClient elasticsearchClient() {
         return RestClients.create(ClientConfiguration.localhost()).rest();
     }
+    // 不需要手动声明@Bean
 }

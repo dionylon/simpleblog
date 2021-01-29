@@ -1,6 +1,6 @@
 package com.dionysun.simpleblog.controller;
 
-import com.dionysun.simpleblog.PassToken;
+import com.dionysun.simpleblog.common.PassToken;
 import com.dionysun.simpleblog.entity.Article;
 import com.dionysun.simpleblog.entity.Tag;
 import com.dionysun.simpleblog.service.TagService;

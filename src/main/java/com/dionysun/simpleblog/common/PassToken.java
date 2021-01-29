@@ -1,4 +1,4 @@
-package com.dionysun.simpleblog;
+package com.dionysun.simpleblog.common;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

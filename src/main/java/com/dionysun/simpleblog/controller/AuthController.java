@@ -1,7 +1,7 @@
 package com.dionysun.simpleblog.controller;
 
-import com.dionysun.simpleblog.JwtUtils;
-import com.dionysun.simpleblog.PassToken;
+import com.dionysun.simpleblog.common.JwtUtils;
+import com.dionysun.simpleblog.common.PassToken;
 import com.dionysun.simpleblog.entity.User;
 import com.dionysun.simpleblog.entity.UserVO;
 import com.dionysun.simpleblog.service.UserService;

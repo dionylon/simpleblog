@@ -1,6 +1,6 @@
 package com.dionysun.simpleblog.controller;
 
-import com.dionysun.simpleblog.PassToken;
+import com.dionysun.simpleblog.common.PassToken;
 import com.dionysun.simpleblog.entity.Article;
 import com.dionysun.simpleblog.service.ArticleService;
 import org.springframework.data.domain.Page;

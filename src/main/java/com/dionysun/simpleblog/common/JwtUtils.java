@@ -1,4 +1,4 @@
-package com.dionysun.simpleblog;
+package com.dionysun.simpleblog.common;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
